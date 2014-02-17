@@ -7,7 +7,7 @@ This is a simple two-dimensional data set with 200 objects in 2 clusters. It is 
 }
 \usage{data(DemoDataC2D2a)}
 \format{
-  A data frame with 200 observations on 2 variables.
+    A matrix [nClusters x nFeatures] = [2 x 2].
 }
 \examples{
 data(DemoDataC2D2a); plot(DemoDataC2D2a)

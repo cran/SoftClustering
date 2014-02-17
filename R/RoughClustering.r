@@ -9,12 +9,12 @@
 #' @title Rough k-Means Shell
 #' @description RoughKMeans_SHELL performs rough k-means algorithms with  options for normalization and a 2D-plot of the results.
 #' @param clusterAlgorithm Select 0 = classic k-means, 1 = Lingras & West's rough k-means, 2 = Peters' rough k-means, 3 = \eqn{\pi} rough k-means. Default: clusterAlgorithm = 3 (\eqn{\pi} rough k-means).
-#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nClusters]. 
-#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatrues] = self-defined means. Default: 2 = maximum distances.
-#' @param nClusters Number of clusters: Integer in [2, nObjects). Default: nClusters = 2. Note: Plotting is limited to a maximum of 5 clusters.
+#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nFeatures]. 
+#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatures] = self-defined means. Default: 2 = maximum distances.
+#' @param nClusters Number of clusters: Integer in [2, nObjects). Note, nCluster must be set even when meansMatrix is a matrix. For transparency, nClusters will not be overridden by the number of clusters derived from meansMatrix. Default: nClusters=2. Note: Plotting is limited to a maximum of 5 clusters.
 #' @param normalizationMethod 1 = unity interval, 2 = normal distribution (sample variance), 3 = normal distribution (population variance). Any other value returns the matrix unchanged. Default: meansMatrix = 1 (unity interval).
 #' @param maxIterations Maximum number of iterations. Default: maxIterations=100.
-#' @param plotDimensions An integer vector of the length 2. Defines the to be plotted feature dimensions, i.e. max(plotDimensions = c(1:2)) <= nFeatrues. Default: plotDimensions = c(1:2).
+#' @param plotDimensions An integer vector of the length 2. Defines the to be plotted feature dimensions, i.e., max(plotDimensions = c(1:2)) <= nFeatures. Default: plotDimensions = c(1:2).
 #' @param colouredPlot Select TRUE = colouredPlot plot, FALSE = black/white plot.
 #' @param threshold Relative threshold in rough k-means algorithms (threshold >= 1.0).  Default: threshold = 1.5. Note: It can be ignored for classic k-means.
 #' @param weightLower Weight of the lower approximation in rough k-means algorithms (0.0 <= weightLower <= 1.0).  Default: weightLower = 0.7. Note: It can be ignored for classic k-means and \eqn{\pi} rough k-means
@@ -53,7 +53,7 @@ RoughKMeans_SHELL = function(clusterAlgorithm=3, dataMatrix, meansMatrix=1, nClu
     return(reslist$fctMessage)
   }
   
-  plotMessage = plotRoughKMeans(dataMatrix, reslist$upperApprox, reslist$clusterMeans, plotDimensions = c(1:2), colouredPlot )
+  plotMessage = plotRoughKMeans(dataMatrix, reslist$upperApprox, reslist$clusterMeans, plotDimensions, colouredPlot )
   
   reslist[['Messages']] <- paste("[ ", plotMessage, " ]  ", "[ Return Variables: $upperApprox, $clusterMeans, $nIterations ]", sep="")
   #reslist[["Plot"]] <- plotMessage
@@ -68,15 +68,15 @@ RoughKMeans_SHELL = function(clusterAlgorithm=3, dataMatrix, meansMatrix=1, nClu
 
 #' @title Hard k-Means
 #' @description HardKMeans performs classic (hard) k-means.
-#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nClusters]. 
-#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatrues] = self-defined means. Default: 2 = maximum distances.
-#' @param nClusters Number of clusters: Integer in [2, nObjects). Default: nClusters = 2.
+#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nFeatures]. 
+#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatures] = self-defined means. Default: 2 = maximum distances.
+#' @param nClusters Number of clusters: Integer in [2, nObjects). Note, nCluster must be set even when meansMatrix is a matrix. For transparency, nClusters will not be overridden by the number of clusters derived from meansMatrix. Default: nClusters=2.
 #' @param maxIterations Maximum number of iterations. Default: maxIterations=100.
 #' @return \code{$upperApprox}: Obtained upper approximations [nObjects x nClusters]. Note: Apply function \code{createLowerMShipMatrix()} to obtain lower approximations; and for the boundary: \code{boundary = upperApprox - lowerApprox}.
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
 #' @references Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering - fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
 #' @usage HardKMeans(dataMatrix, meansMatrix, nClusters, maxIterations)
 #' @export
 #' @examples
@@ -122,7 +122,11 @@ HardKMeans = function(dataMatrix, meansMatrix = 2, nClusters = 2, maxIterations 
     previousMShips = MShipMatrix
     
     MShipMatrix = assignObj2ClustersHKM(dataMatrix, meansMatrix)
-    
+	
+	if ( length(which( colSums(MShipMatrix)==0 )) != 0 ){
+ 		return (list(fctStatus = FALSE, fctMessage =  "ERROR: Numerical instability. One cluster got empty. Please increase the number of objects or reduce the number of clusters."))
+	}
+   
     print( counter <- counter + 1 )
   } # END: WHILE
   
@@ -166,9 +170,9 @@ assignObj2ClustersHKM = function(dataMatrix, meansMatrix) {
 
 #' @title Lingras & West's Rough k-Means
 #' @description RoughKMeans_LW performs Lingras & West's k-means clustering algorithm. The commonly accepted relative threshold is applied.
-#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nClusters]. 
-#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatrues] = self-defined means. Default: 2 = maximum distances.
-#' @param nClusters Number of clusters: Integer in [2, nObjects). Default: nClusters = 2.
+#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nFeatures]. 
+#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatures] = self-defined means. Default: 2 = maximum distances.
+#' @param nClusters Number of clusters: Integer in [2, nObjects). Note, nCluster must be set even when meansMatrix is a matrix. For transparency, nClusters will not be overridden by the number of clusters derived from meansMatrix. Default: nClusters=2.
 #' @param maxIterations Maximum number of iterations. Default: maxIterations=100.
 #' @param threshold Relative threshold in rough k-means algorithms (threshold >= 1.0).  Default: threshold = 1.5. 
 #' @param weightLower Weight of the lower approximation in rough k-means algorithms (0.0 <= weightLower <= 1.0).  Default: weightLower = 0.7.
@@ -178,7 +182,8 @@ assignObj2ClustersHKM = function(dataMatrix, meansMatrix) {
 #' @references Lingras, P. and West, C. (2004) Interval Set Clustering of web users with rough k-means. \emph{Journal of Intelligent Information Systems} \bold{23}, 5--16.
 #' @references Lingras, P. and Peters, G. (2011) Rough Clustering. \emph{ WIREs Data Mining and Knowledge Discovery} \bold{1}, 64--72.
 #' @references Lingras, P. and Peters, G. (2012) Applying rough set concepts to clustering. In: Peters, G.; Lingras, P.; Slezak, D. and Yao, Y. Y. (Eds.) \emph{Rough Sets: Selected Methods and Applications in Management and Engineering}, Springer, 23--37.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering - fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
 #' @usage RoughKMeans_LW(dataMatrix, meansMatrix, nClusters, maxIterations, threshold, weightLower)
 #' @export
 #' @examples 
@@ -287,9 +292,9 @@ assignObj2upperApproxLW = function(dataMatrix, meansMatrix, threshold) {
 
 #' @title Peters' Rough k-Means
 #' @description RoughKMeans_PE performs Peters' k-means clustering algorithm.
-#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nClusters]. 
-#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatrues] = self-defined means. Default: 2 = maximum distances.
-#' @param nClusters Number of clusters: Integer in [2, nObjects). Default: nClusters = 2.
+#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nFeatures]. 
+#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatures] = self-defined means. Default: 2 = maximum distances.
+#' @param nClusters Number of clusters: Integer in [2, nObjects). Note, nCluster must be set even when meansMatrix is a matrix. For transparency, nClusters will not be overridden by the number of clusters derived from meansMatrix. Default: nClusters=2.
 #' @param maxIterations Maximum number of iterations. Default: maxIterations=100.
 #' @param threshold Relative threshold in rough k-means algorithms (threshold >= 1.0).  Default: threshold = 1.5. 
 #' @param weightLower Weight of the lower approximation in rough k-means algorithms (0.0 <= weightLower <= 1.0).  Default: weightLower = 0.7.
@@ -297,7 +302,8 @@ assignObj2upperApproxLW = function(dataMatrix, meansMatrix, threshold) {
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
 #' @references Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering - fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
 #' @usage RoughKMeans_PE(dataMatrix, meansMatrix, nClusters, maxIterations, threshold, weightLower)
 #' @export
 #' @examples 
@@ -365,16 +371,17 @@ RoughKMeans_PE = function(dataMatrix, meansMatrix = NA, nClusters = 2, maxIterat
 
 #' @title \code{PI} Rough k-Means
 #' @description RoughKMeans_PI performs \code{pi} k-means clustering algorithm in its standard case. Therefore, weights are not required.
-#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nClusters]. 
-#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatrues] = self-defined means. Default: 2 = maximum distances.
-#' @param nClusters Number of clusters: Integer in [2, nObjects). Default: nClusters = 2.
+#' @param dataMatrix Matrix with the objects to be clustered. Dimension: [nObjects x nFeatures]. 
+#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatures] = self-defined means. Default: 2 = maximum distances.
+#' @param nClusters Number of clusters: Integer in [2, nObjects). Note, nCluster must be set even when meansMatrix is a matrix. For transparency, nClusters will not be overridden by the number of clusters derived from meansMatrix. Default: nClusters=2.
 #' @param maxIterations Maximum number of iterations. Default: maxIterations=100.
 #' @param threshold Relative threshold in rough k-means algorithms (threshold >= 1.0).  Default: threshold = 1.5. 
 #' @return \code{$upperApprox}: Obtained upper approximations [nObjects x nClusters]. Note: Apply function \code{createLowerMShipMatrix()} to obtain lower approximations; and for the boundary: \code{boundary = upperApprox - lowerApprox}.
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering - fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
-#' @references Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{}, in press.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+#' @references Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374.
+#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
 #' @usage RoughKMeans_PI(dataMatrix, meansMatrix, nClusters, maxIterations, threshold) 
 #' @export
 #' @examples 
@@ -502,32 +509,39 @@ assignObj2upperApproxPE = function(dataMatrix, meansMatrix, threshold) {
 ###########################################################
 checkParameters = function(nObjects, nFeatures, nClusters, weightLower, threshold, maxIterations, meansMatrix) {
   
+  
   #validation of the number of cluster centres
-  if (nClusters > nObjects || nClusters < 2) {
-    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <nClusters = [2, nObjects)>"))
+    if ( !( datatypeInteger(nClusters) &&  2<=nClusters && nClusters<nObjects ) ) {
+    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <nClusters = [2, nObjects)> with <datatype(nClusters) = integer>"))
   }
   
   #validation of the weight
-  if ( weightLower < 0.0 || weightLower > 1.0 ) {
-    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <weightLower = [0, 1]>"))
+  if ( !( 0.0 <= weightLower && weightLower <= 1.0 ) ) {
+    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <weightLower = [0.0, 1.0]> with <datatype(weightLower) = real>"))
   }
   
   #validation of the threshold
-  if (threshold < 1.0) {
-    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <threshold >= 1>"))
+  if (  !( threshold >= 1.0 ) ) {
+    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <threshold >= 1.0> with <datatype(threshold) = real>"))
   }
   
   #validation of the maximal number of iterations
-  if (maxIterations < 1) {
-    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <iterations >= 1>"))
+  if ( !( datatypeInteger(maxIterations) && maxIterations>1 ) ) {
+    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <iterations >= 1>  with <datatype(iterations) = integer>"))
   }
+  
+  if ( is.matrix(meansMatrix) ){
+	if ( !( nrow(meansMatrix)==nClusters && ncol(meansMatrix)==nFeatures ) ) 
+		return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <dim(meansMatrix) = [nClusters x nFeatures]>"))
 
-  if ( is.matrix(meansMatrix) && ( nrow(meansMatrix) != nClusters || ncol(meansMatrix) != nFeatures) ) {
-    return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <meansMatrix dimensions = nClusters x nFeatures>"))
-  } else if ( as.integer(meansMatrix) != 1 && as.integer(meansMatrix) != 2 ) {
-	return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <[meansMatrix] = 1> for random means, <2> for maximal distances between means, or a <matrix> for pre-defined means"))
+  }else if ( datatypeInteger(meansMatrix) ){
+	if ( !( as.integer(meansMatrix)== 1 || as.integer(meansMatrix)==2 ) )
+		return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <[meansMatrix] = 1> for random means, <2> for maximal distances between means, or a matrix with <dim(meansMatrix) = [nClusters x nFeatures] for pre-defined means (2)"))
+	
+  }else{
+		return (list(fctStatus = FALSE, fctMessage =  "ERROR: Select <datatype(meansMatrix) = integer.or.matrix> with <meansMatrix = 1> for random means, <meansMatrix = 2> for maximal distances between means, or a matrix with <dim(meansMatrix) = [nClusters x nFeature] for pre-defined means (2)"))
   }
- 
+  
   return (list(fctStatus = TRUE, fctMessage =  NA))
 }
 
@@ -588,17 +602,19 @@ normalizeMatrix <- function ( dataMatrix, normMethod=1, byrow = TRUE ) {
 #' @description initializeMeansMatrix delivers an initial means matrix.
 #' @param dataMatrix Matrix with the objects as basis for the means matrix.
 #' @param nClusters Number of clusters.
-#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatrues] = self-defined means (will be returned unchanged). Default: 2 = maximum distances.
-#' @return Initial means matrix [nClusters x nFeatrues].
+#' @param meansMatrix Select means derived from 1 = random (unity interval), 2 = maximum distances, matrix [nClusters x nFeatures] = self-defined means (will be returned unchanged). Default: 2 = maximum distances.
+#' @return Initial means matrix [nClusters x nFeatures].
 #' @usage initializeMeansMatrix(dataMatrix, nClusters, meansMatrix)
-#' @export
 #' @author M. Goetz, G. Peters, Y. Richter, D. Sacker, T. Wochinger.
 
 initializeMeansMatrix = function(dataMatrix, nClusters, meansMatrix) {
   
   dataMatrix = as.matrix(dataMatrix)
-  
-  if (meansMatrix == 1) {            # random means
+ 
+  if(is.matrix(meansMatrix)) { # means pre-defined
+    # no action required
+   		
+  }else if (meansMatrix == 1) {            # random means
     
     nFeatures = ncol(dataMatrix)
     meansMatrix = matrix(0, nrow=nClusters, ncol=nFeatures)
@@ -620,10 +636,7 @@ initializeMeansMatrix = function(dataMatrix, nClusters, meansMatrix) {
     }
     
     meansMatrix = dataMatrix[meansObjects,]
-    
-  }else if(is.matrix(meansMatrix)) { # means pre-defined
-    # no action required
-    
+	
   }else {
     print("ERROR: Select <[meansMatrix] = 1> for random means), <2> for maximal distances between means, or a <matrix> for pre-defined means")
 	stop("yes")
@@ -637,8 +650,6 @@ initializeMeansMatrix = function(dataMatrix, nClusters, meansMatrix) {
 ###########################################################
 # createLowerMShipMatrix
 ###########################################################
-
-
 #' @title Create Lower Approximation
 #' @description Creates a lower approximation out of an upper approximation.
 #' @param upperMShipMatrix An upper approximation matrix.
@@ -646,8 +657,6 @@ initializeMeansMatrix = function(dataMatrix, nClusters, meansMatrix) {
 #' @usage createLowerMShipMatrix(upperMShipMatrix)
 #' @export
 #' @author G. Peters.
-
-
 
 createLowerMShipMatrix = function(upperMShipMatrix) {
   
@@ -678,13 +687,12 @@ convertDataFrame2Matrix = function(dataMatrix) {
 # plotRoughKMeans
 ###########################################################
 
-
 #' @title Rough k-Means Plotting
 #' @description plotRoughKMeans plots the rough clustering results in 2D. Note: Plotting is limited to a maximum of 5 clusters.
 #' @param dataMatrix Matrix with the objects to be plotted.
 #' @param upperMShipMatrix Corresponding matrix with upper approximations.
 #' @param meansMatrix Corresponding means matrix.
-#' @param plotDimensions An integer vector of the length 2. Defines the to be plotted feature dimensions, i.e. max(plotDimensions = c(1:2)) <= nFeatrues. Default: plotDimensions = c(1:2).
+#' @param plotDimensions An integer vector of the length 2. Defines the to be plotted feature dimensions, i.e., max(plotDimensions = c(1:2)) <= nFeatures. Default: plotDimensions = c(1:2).
 #' @param colouredPlot Select TRUE = colouredPlot plot, FALSE = black/white plot.
 #' @usage plotRoughKMeans(dataMatrix, upperMShipMatrix, meansMatrix, plotDimensions, colouredPlot)
 #' @return 2D-plot of clustering results. The boundary objects are represented by stars (*).
@@ -714,7 +722,8 @@ plotRoughKMeans = function(dataMatrix, upperMShipMatrix, meansMatrix, plotDimens
   if( length(plotDimensions) != 2 || min(plotDimensions) < 1 || max(plotDimensions) > nFeatures ) {
     return("ERROR: Set < plotDimensions) != 2 || min(plotDimensions) < 1 || max(plotDimensions) > nFeatures >")
   }
-  
+ 
+  # Set colours and symbols for objects
   objectSymbols  = c( 0, 1, 5, 2, 6)
   meansSymbols   = c(22,21,23,24,25)
   boundarySymbol = 8
@@ -725,14 +734,10 @@ plotRoughKMeans = function(dataMatrix, upperMShipMatrix, meansMatrix, plotDimens
   }else{
     clusterColors  = c( 1, 1, 1, 1, 1)
   }
+
   
   dataMatrix  = dataMatrix [, plotDimensions]
   meansMatrix = meansMatrix[, plotDimensions]
-  
-  objectSymbols  = c( 0, 1, 5, 2, 6)
-  meansSymbols   = c(22,21,23,24,25)
-  boundarySymbol = 8
-  boundaryColor  = 1 
   
   lowerMShips  = which( rowSums(upperMShipMatrix) == 1 )
   
@@ -756,5 +761,22 @@ plotRoughKMeans = function(dataMatrix, upperMShipMatrix, meansMatrix, plotDimens
   
   return("Plot created")
   
+}
+
+###########################################################
+# datatypeInteger
+###########################################################
+
+#' @title Rough k-Means Plotting
+#' @description Checks for integer.
+#' @param x As a replacement for is.integer(). is.integer() delivers FALSE when the variable is numeric (as superset for integer etc.)
+#' @usage datatypeInteger(x)
+#' @return TRUE if x is integer otherwise FALSE.
+#' @author G. Peters.
+
+datatypeInteger <- function(x)
+{
+	return ( as.integer(x)==x )
+
 }
 
