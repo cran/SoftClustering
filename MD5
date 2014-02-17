@@ -1,0 +1,14 @@
+1618d3efc3d77d64233bfb77ba8dff2f *DESCRIPTION
+15814d76073ad289839a8e7b4b2598d4 *NAMESPACE
+319647f2e3f0a93116776e902b309920 *R/RoughClustering_01402.r
+c98fe8c082fd4859d2877d1831e2a741 *data/DemoDataC2D2a.txt.gz
+9264ddf00be7a62363052521e84370a3 *man/DemoDataC2D2a.Rd
+85b53c1115962cfaf63be291b2ef8c1b *man/HardKMeans.Rd
+dc0c62b82c2a4a03edfc7b5384a70559 *man/RoughKMeans_LW.Rd
+df318d542c3dd92f7ea8bd6ff605a2e6 *man/RoughKMeans_PE.Rd
+77ee5f99ecfb59a453fb46e232a29e04 *man/RoughKMeans_PI.Rd
+828e0a2eae14768fca818ae8adb42251 *man/RoughKMeans_SHELL.Rd
+413a7f856ddca5c10f41706056cfb6f0 *man/createLowerMShipMatrix.Rd
+a483545e306dc6153f85cb53c7d84992 *man/initializeMeansMatrix.Rd
+5dca596f579834b4f48b85360012b77b *man/normalizeMatrix.Rd
+2f4ad4153eaddd7f148b75bb99e3c2b2 *man/plotRoughKMeans.Rd

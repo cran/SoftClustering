@@ -1,0 +1,74 @@
+\name{RoughKMeans_LW}
+\alias{RoughKMeans_LW}
+\title{Lingras & West's Rough k-Means}
+\usage{
+RoughKMeans_LW(dataMatrix, meansMatrix, nClusters, maxIterations, threshold, weightLower)
+}
+\arguments{
+  \item{dataMatrix}{Matrix with the objects to be
+  clustered. Dimension: [nObjects x nClusters].}
+
+  \item{meansMatrix}{Select means derived from 1 = random
+  (unity interval), 2 = maximum distances, matrix
+  [nClusters x nFeatrues] = self-defined means. Default: 2
+  = maximum distances.}
+
+  \item{nClusters}{Number of clusters: Integer in [2,
+  nObjects). Default: nClusters = 2.}
+
+  \item{maxIterations}{Maximum number of iterations.
+  Default: maxIterations=100.}
+
+  \item{threshold}{Relative threshold in rough k-means
+  algorithms (threshold >= 1.0).  Default: threshold =
+  1.5.}
+
+  \item{weightLower}{Weight of the lower approximation in
+  rough k-means algorithms (0.0 <= weightLower <= 1.0).
+  Default: weightLower = 0.7.}
+}
+\value{
+\code{$upperApprox}: Obtained upper approximations
+[nObjects x nClusters]. Note: Apply function
+\code{createLowerMShipMatrix()} to obtain lower
+approximations; and for the boundary: \code{boundary =
+upperApprox - lowerApprox}.
+
+\code{$clusterMeans}: Obtained means [nClusters x
+nFeatures].
+
+\code{$nIterations}: Number of iterations.
+}
+\description{
+RoughKMeans_LW performs Lingras & West's k-means clustering
+algorithm. The commonly accepted relative threshold is
+applied.
+}
+\examples{
+# An illustrative example clustering the sample data set DemoDataC2D2a.txt
+RoughKMeans_LW(DemoDataC2D2a, 2, 2, 100, 1.5, 0.7)
+}
+\author{
+M. Goetz, G. Peters, Y. Richter, D. Sacker, T. Wochinger.
+}
+\references{
+Lingras, P. and West, C. (2004) Interval Set Clustering of
+web users with rough k-means. \emph{Journal of Intelligent
+Information Systems} \bold{23}, 5--16.
+
+Lingras, P. and Peters, G. (2011) Rough Clustering. \emph{
+WIREs Data Mining and Knowledge Discovery} \bold{1},
+64--72.
+
+Lingras, P. and Peters, G. (2012) Applying rough set
+concepts to clustering. In: Peters, G.; Lingras, P.;
+Slezak, D. and Yao, Y. Y. (Eds.) \emph{Rough Sets: Selected
+Methods and Applications in Management and Engineering},
+Springer, 23--37.
+
+Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013)
+Soft clustering - fuzzy and rough approaches and their
+extensions and derivatives. \emph{International Journal of
+Approximate Reasoning} \bold{54}, 307--322.
+}
+

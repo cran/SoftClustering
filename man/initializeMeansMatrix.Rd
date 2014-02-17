@@ -1,0 +1,27 @@
+\name{initializeMeansMatrix}
+\alias{initializeMeansMatrix}
+\title{Initialize Means Matrix}
+\usage{
+initializeMeansMatrix(dataMatrix, nClusters, meansMatrix)
+}
+\arguments{
+  \item{dataMatrix}{Matrix with the objects as basis for
+  the means matrix.}
+
+  \item{nClusters}{Number of clusters.}
+
+  \item{meansMatrix}{Select means derived from 1 = random
+  (unity interval), 2 = maximum distances, matrix
+  [nClusters x nFeatrues] = self-defined means (will be
+  returned unchanged). Default: 2 = maximum distances.}
+}
+\value{
+Initial means matrix [nClusters x nFeatrues].
+}
+\description{
+initializeMeansMatrix delivers an initial means matrix.
+}
+\author{
+M. Goetz, G. Peters, Y. Richter, D. Sacker, T. Wochinger.
+}
+
