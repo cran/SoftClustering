@@ -282,7 +282,6 @@ assignObj2upperApproxLW = function(dataMatrix, meansMatrix, threshold) {
   }
   
   return(upperMShipMatrix)
-  
 }
 
 
@@ -553,19 +552,19 @@ checkParameters = function(nObjects, nFeatures, nClusters, weightLower, threshol
 #' @description normalizeMatrix delivers a normalized matrix.
 #' @param dataMatrix Matrix with the objects to be normalized. 
 #' @param normMethod 1 = unity interval, 2 = normal distribution (sample variance), 3 = normal distribution (population variance). Any other value returns the matrix unchanged. Default: meansMatrix = 1 (unity interval).
-#' @param byrow TRUE = rows are normalized, FALSE = columns are normalized. Default: byrow = TRUE (rows are normalized).
+#' @param bycol TRUE = columns are normalized i.e., each column is considered separately (e.g. in case of the unity interval and a column colA: max(colA)=1 and min(colA)=0). For bycol = FALSE rows are normalized. Default: bycol = TRUE (columns are normalized).
 #' @return Normalized matrix.
-#' @usage normalizeMatrix( dataMatrix, normMethod, byrow) 
+#' @usage normalizeMatrix(dataMatrix, normMethod, bycol) 
 #' @export
 #' @author M. Goetz, G. Peters, Y. Richter, D. Sacker, T. Wochinger.
 
 
-normalizeMatrix <- function ( dataMatrix, normMethod=1, byrow = TRUE ) {
+normalizeMatrix <- function ( dataMatrix, normMethod=1, bycol = TRUE ) {
   
   dataMatrix = as.matrix(dataMatrix)
   nCol = ncol(dataMatrix)
   
-  if ( byrow == FALSE ) {
+  if ( bycol == FALSE ) {
     dataMatrix = t(dataMatrix)
   }
   
@@ -582,11 +581,11 @@ normalizeMatrix <- function ( dataMatrix, normMethod=1, byrow = TRUE ) {
     for ( i in 1:nCol ) {
       dataMatrix [,i] = ( dataMatrix[,i]-mean(dataMatrix[,i]) ) / ( (nRow-1)/nRow * sd(dataMatrix[,i]) ) 
     }
-  }else {                            # Return matrix unchanged
+  }else {                            # Return matrix unchanged (empty "else" just for transparency)
     
   }
   
-  if ( byrow == FALSE ) {
+  if ( bycol == FALSE ) {
     dataMatrix = t(dataMatrix)
   }
   
@@ -697,7 +696,9 @@ convertDataFrame2Matrix = function(dataMatrix) {
 #' @usage plotRoughKMeans(dataMatrix, upperMShipMatrix, meansMatrix, plotDimensions, colouredPlot)
 #' @return 2D-plot of clustering results. The boundary objects are represented by stars (*).
 #' @author G. Peters.
-
+#' @import graphics 
+#' @import stats
+#' @import grDevices
 
 plotRoughKMeans = function(dataMatrix, upperMShipMatrix, meansMatrix, plotDimensions = c(1:2), colouredPlot=TRUE ) {
   
@@ -741,7 +742,7 @@ plotRoughKMeans = function(dataMatrix, upperMShipMatrix, meansMatrix, plotDimens
   
   lowerMShips  = which( rowSums(upperMShipMatrix) == 1 )
   
-  plot(dataMatrix, col = "white")
+  plot(dataMatrix, type = "n")
   
   # Plot members of lower approximations
   for(i in lowerMShips) {

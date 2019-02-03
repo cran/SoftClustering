@@ -16,11 +16,11 @@
 #' # Clustering the data set DemoDataC2D2a.txt (nClusters=2, random initial means)
 #' HardKMeansDemo(DemoDataC2D2a,1,2)
 #' # Clustering the data set DemoDataC2D2a.txt (nClusters=2,3,4; initially set means)
-#' HardKMeansDemo(DemoDataC2D2a,initMeansC2D2a,3)
+#' HardKMeansDemo(DemoDataC2D2a,initMeansC2D2a,2)
 #' HardKMeansDemo(DemoDataC2D2a,initMeansC3D2a,3)
 #' HardKMeansDemo(DemoDataC2D2a,initMeansC4D2a,4)
 #' # Clustering the data set DemoDataC2D2a.txt (nClusters=5, initially set means)
-#' # It leads to an empty cluster: a (rare) case of termination of k-means.
+#' # It leads to an empty cluster: a (rare) case for an abnormal termination of k-means.
 #' HardKMeansDemo(DemoDataC2D2a,initMeansC5D2a,5)
 #' @author G. Peters.
 #' @export
@@ -94,7 +94,7 @@ HardKMeansDemo = function(dataMatrix, meansMatrix = 1, nClusters=2) {
 
 	# Plot --------------------------------------------------------------------
 	graphics.off()
-	plot(dataMatrix, col = "white", xlab="Feature 1", ylab="Feature 2", main="Objects Assigned to Closest Means")
+	plot(dataMatrix, type = "n", xlab="Feature 1", ylab="Feature 2", main="Objects Assigned to Closest Means")
 	# Plot objects assigned to closest clusters
 	for(i in 1:nObjects) {
 		clusterNumber = which( MShipMatrix[i,] == 1 )
@@ -116,7 +116,7 @@ HardKMeansDemo = function(dataMatrix, meansMatrix = 1, nClusters=2) {
   
 	# Plot --------------------------------------------------------------------
 	graphics.off()
-	plot(dataMatrix, col = "white", xlab="Feature 1", ylab="Feature 2", main="New Means Derived from Current Cluster Assignments")
+	plot(dataMatrix, type = "n", xlab="Feature 1", ylab="Feature 2", main="New Means Derived from Current Cluster Assignments")
 	# Plot objects assigned to closest clusters
 	for(i in 1:nObjects) {
 		clusterNumber = which( MShipMatrix[i,] == 1 )
@@ -137,16 +137,13 @@ HardKMeansDemo = function(dataMatrix, meansMatrix = 1, nClusters=2) {
     MShipMatrix = assignObj2ClustersHKM(dataMatrix, meansMatrix)
 	
 	print(MShipMatrix)
-    
-	
-	
 	
     print( counter <- counter + 1 )
   } # END: WHILE
 
 	# Plot --------------------------------------------------------------------
 	graphics.off()
-	plot(dataMatrix, col = "white", xlab="Feature 1", ylab="Feature 2", main="Final Objects Assignments to Means")
+	plot(dataMatrix, type = "n", xlab="Feature 1", ylab="Feature 2", main="Final Objects Assignments to Means")
 	# Plot objects assigned to closest clusters
 	for(i in 1:nObjects) {
 		clusterNumber = which( MShipMatrix[i,] == 1 )
