@@ -30,9 +30,9 @@ HardKMeans performs classic (hard) k-means.
 HardKMeans(DemoDataC2D2a, 2, 2, 100)
 }
 \references{
-Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137.
+Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137. <doi:10.1016/j.ijar.2012.10.003>.
 
-Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
 }
 \author{
 M. Goetz, G. Peters, Y. Richter, D. Sacker, T. Wochinger.

@@ -1,8 +1,8 @@
-e76360de26e6f88cc434843148fae08a *DESCRIPTION
+a4509314728b671ef4fa084c73b34a35 *DESCRIPTION
 07bba7c4636e9e9f93e0790141f162a9 *NAMESPACE
 27ebc321e447393b6e3c7345fe3516ee *R/DemoDataC2D2a.r
-52b3a5fbf91dc94b2f7bc85f77ecbe84 *R/HardkMeansDemo.r
-7229f94cf423caab9b7b12d2769807fd *R/RoughClustering.r
+434037adb215cd5828ecb2e17c0f2b1d *R/HardkMeansDemo.r
+5038896ca465fa7df4abfd575f5f638c *R/RoughClustering.r
 1829546d668604d53b7425e52e55ef50 *R/initMeansC2D2a.r
 ae5ee5055e26f4942a3e48883edd2970 *R/initMeansC3D2a.r
 e46b0caae0b9a10dbe69dad2b25e1dd0 *R/initMeansC4D2a.r
@@ -13,12 +13,12 @@ a018a336397cf60f96b6477cf985258e *data/initMeansC3D2a.rda
 88d497d1baf62647f38e342e8424e936 *data/initMeansC4D2a.rda
 36926a9838ad07c6a0802f0eb4b2f251 *data/initMeansC5D2a.rda
 011c93e50e67c1783c4918788a777528 *man/DemoDataC2D2a.Rd
-bf0c88bbb58bcb7d788bfaa676e5f8d1 *man/HardKMeans.Rd
-9afc5b315a80a805ad88232cebdb5d4b *man/HardKMeansDemo.Rd
-bf51abdd826c00c2351864a146056e84 *man/RoughKMeans_LW.Rd
-7651a1c65edccc35fdf1d4be3db08e8d *man/RoughKMeans_PE.Rd
-f766076e9c1109ba3a8cfffb2847cdb0 *man/RoughKMeans_PI.Rd
-76549e7a22c858088e9c0789f9528d72 *man/RoughKMeans_SHELL.Rd
+3f1be31045d773279ca363226ad8a61f *man/HardKMeans.Rd
+38f6cb77013c472e0070f6c1121ee4a6 *man/HardKMeansDemo.Rd
+0dea7eb1fa55a4b04916cdd5d8033874 *man/RoughKMeans_LW.Rd
+6885ecf4acb4807887cdc524dabd18d4 *man/RoughKMeans_PE.Rd
+2bb9b427a52959199c97a18b456e3c04 *man/RoughKMeans_PI.Rd
+ccac71fef6bc5f6f39d932871b39df48 *man/RoughKMeans_SHELL.Rd
 29b67f510b70842dffb184fe07474760 *man/createLowerMShipMatrix.Rd
 9c1d7838a7412a6a9cce3bc2cc672c78 *man/datatypeInteger.Rd
 0c97aaee5c752bb9928b430a77b6f2f9 *man/initMeansC2D2a.Rd
@@ -26,5 +26,5 @@ f766076e9c1109ba3a8cfffb2847cdb0 *man/RoughKMeans_PI.Rd
 199935cad9e18067b72297b402fe8656 *man/initMeansC4D2a.Rd
 e7a164bbabc138f03d58b30fa5a81c61 *man/initMeansC5D2a.Rd
 f46b0bd16ab698fed73c6e5ebb53d4c6 *man/initializeMeansMatrix.Rd
-89cfb893a08f23f22dbeba1202627bfb *man/normalizeMatrix.Rd
+6e830b5ee808993ee7a5f3a1712ec71e *man/normalizeMatrix.Rd
 113e3c2a2b40a82abcb511b0790cca0f *man/plotRoughKMeans.Rd

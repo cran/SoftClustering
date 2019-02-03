@@ -31,9 +31,9 @@ HardKMeansDemo(DemoDataC2D2a,initMeansC4D2a,4)
 HardKMeansDemo(DemoDataC2D2a,initMeansC5D2a,5)
 }
 \references{
-Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137.
+Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137. <doi:10.1016/j.ijar.2012.10.003>.
 
-Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
 }
 \author{
 G. Peters.

@@ -11,7 +11,7 @@ normalizeMatrix(dataMatrix, normMethod, bycol)
 
 \item{normMethod}{1 = unity interval, 2 = normal distribution (sample variance), 3 = normal distribution (population variance). Any other value returns the matrix unchanged. Default: meansMatrix = 1 (unity interval).}
 
-\item{bycol}{TRUE = columns are normalized i.e., each column is considered separately (e.g. in case of the unity interval and a column colA: max(colA)=1 and min(colA)=0). For bycol = FALSE rows are normalized. Default: bycol = TRUE (columns are normalized).}
+\item{bycol}{TRUE = columns are normalized, i.e., each column is considered separately (e.g., in case of the unity interval and a column colA: max(colA)=1 and min(colA)=0). For bycol = FALSE rows are normalized. Default: bycol = TRUE (columns are normalized).}
 }
 \value{
 Normalized matrix.

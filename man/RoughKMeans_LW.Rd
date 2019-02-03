@@ -34,15 +34,19 @@ RoughKMeans_LW performs Lingras & West's k-means clustering algorithm. The commo
 RoughKMeans_LW(DemoDataC2D2a, 2, 2, 100, 1.5, 0.7)
 }
 \references{
-Lingras, P. and West, C. (2004) Interval Set Clustering of web users with rough k-means. \emph{Journal of Intelligent Information Systems} \bold{23}, 5--16.
+Lingras, P. and West, C. (2004) Interval Set Clustering of web users with rough k-means. \emph{Journal of Intelligent Information Systems} \bold{23}, 5--16. <doi:10.1023/b:jiis.0000029668.88665.1a>.
 
-Lingras, P. and Peters, G. (2011) Rough Clustering. \emph{ WIREs Data Mining and Knowledge Discovery} \bold{1}, 64--72.
+Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491. <doi:10.1016/j.patcog.2006.02.002>.
 
-Lingras, P. and Peters, G. (2012) Applying rough set concepts to clustering. In: Peters, G.; Lingras, P.; Slezak, D. and Yao, Y. Y. (Eds.) \emph{Rough Sets: Selected Methods and Applications in Management and Engineering}, Springer, 23--37.
+Lingras, P. and Peters, G. (2011) Rough Clustering. \emph{WIREs Data Mining and Knowledge Discovery} \bold{1}, 64--72. <doi:10.1002/widm.16>.
 
-Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+Lingras, P. and Peters, G. (2012) Applying rough set concepts to clustering. In: Peters, G.; Lingras, P.; Slezak, D. and Yao, Y. Y. (Eds.) \emph{Rough Sets: Selected Methods and Applications in Management and Engineering}, Springer, 23--37. <doi:10.1007/978-1-4471-2760-4_2>.
 
-Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
+Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
+
+Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374. <doi:10.1016/j.ins.2014.02.073>.
+
+Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37. <doi:10.1016/j.patrec.2014.11.003>.
 }
 \author{
 M. Goetz, G. Peters, Y. Richter, D. Sacker, T. Wochinger.

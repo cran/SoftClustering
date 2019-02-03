@@ -34,11 +34,13 @@ RoughKMeans_PE performs Peters' k-means clustering algorithm.
 RoughKMeans_PE(DemoDataC2D2a, 2, 2, 100, 1.5, 0.7)
 }
 \references{
-Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491.
+Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491. <doi:10.1016/j.patcog.2006.02.002>.
 
-Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
 
-Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
+Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374. <doi:10.1016/j.ins.2014.02.073>.
+
+Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37. <doi:10.1016/j.patrec.2014.11.003>.
 }
 \author{
 M. Goetz, G. Peters, Y. Richter, D. Sacker, T. Wochinger.

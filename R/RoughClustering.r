@@ -22,6 +22,14 @@
 #' @return \code{$upperApprox}: Obtained upper approximations [nObjects x nClusters]. Note: Apply function \code{createLowerMShipMatrix()} to obtain lower approximations; and for the boundary: \code{boundary = upperApprox - lowerApprox}.
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
+#' @references Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137. <doi:10.1016/j.ijar.2012.10.003>.
+#' @references Lingras, P. and West, C. (2004) Interval Set Clustering of web users with rough k-means. \emph{Journal of Intelligent Information Systems} \bold{23}, 5--16. <doi:10.1023/b:jiis.0000029668.88665.1a>.
+#' @references Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491. <doi:10.1016/j.patcog.2006.02.002>.
+#' @references Lingras, P. and Peters, G. (2011) Rough Clustering. \emph{WIREs Data Mining and Knowledge Discovery} \bold{1}, 64--72. <doi:10.1002/widm.16>.
+#' @references Lingras, P. and Peters, G. (2012) Applying rough set concepts to clustering. In: Peters, G.; Lingras, P.; Slezak, D. and Yao, Y. Y. (Eds.) \emph{Rough Sets: Selected Methods and Applications in Management and Engineering}, Springer, 23--37. <doi:10.1007/978-1-4471-2760-4_2>.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
+#' @references Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374. <doi:10.1016/j.ins.2014.02.073>.
+#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37. <doi:10.1016/j.patrec.2014.11.003>.
 #' @usage RoughKMeans_SHELL(clusterAlgorithm, dataMatrix, meansMatrix, nClusters, 
 #'                   normalizationMethod, maxIterations, plotDimensions, 
 #'                   colouredPlot, threshold, weightLower)
@@ -75,8 +83,8 @@ RoughKMeans_SHELL = function(clusterAlgorithm=3, dataMatrix, meansMatrix=1, nClu
 #' @return \code{$upperApprox}: Obtained upper approximations [nObjects x nClusters]. Note: Apply function \code{createLowerMShipMatrix()} to obtain lower approximations; and for the boundary: \code{boundary = upperApprox - lowerApprox}.
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
-#' @references Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
+#' @references Lloyd, S.P. (1982) Least squares quantization in PCM. \emph{IEEE Transactions on Information Theory} \bold{28}, 128--137. <doi:10.1016/j.ijar.2012.10.003>.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
 #' @usage HardKMeans(dataMatrix, meansMatrix, nClusters, maxIterations)
 #' @export
 #' @examples
@@ -164,6 +172,8 @@ assignObj2ClustersHKM = function(dataMatrix, meansMatrix) {
 }
 
 
+
+
 #########################################################################
 # Lingras & West
 #########################################################################
@@ -179,11 +189,13 @@ assignObj2ClustersHKM = function(dataMatrix, meansMatrix) {
 #' @return \code{$upperApprox}: Obtained upper approximations [nObjects x nClusters]. Note: Apply function \code{createLowerMShipMatrix()} to obtain lower approximations; and for the boundary: \code{boundary = upperApprox - lowerApprox}.
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
-#' @references Lingras, P. and West, C. (2004) Interval Set Clustering of web users with rough k-means. \emph{Journal of Intelligent Information Systems} \bold{23}, 5--16.
-#' @references Lingras, P. and Peters, G. (2011) Rough Clustering. \emph{ WIREs Data Mining and Knowledge Discovery} \bold{1}, 64--72.
-#' @references Lingras, P. and Peters, G. (2012) Applying rough set concepts to clustering. In: Peters, G.; Lingras, P.; Slezak, D. and Yao, Y. Y. (Eds.) \emph{Rough Sets: Selected Methods and Applications in Management and Engineering}, Springer, 23--37.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
-#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
+#' @references Lingras, P. and West, C. (2004) Interval Set Clustering of web users with rough k-means. \emph{Journal of Intelligent Information Systems} \bold{23}, 5--16. <doi:10.1023/b:jiis.0000029668.88665.1a>.
+#' @references Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491. <doi:10.1016/j.patcog.2006.02.002>.
+#' @references Lingras, P. and Peters, G. (2011) Rough Clustering. \emph{WIREs Data Mining and Knowledge Discovery} \bold{1}, 64--72. <doi:10.1002/widm.16>.
+#' @references Lingras, P. and Peters, G. (2012) Applying rough set concepts to clustering. In: Peters, G.; Lingras, P.; Slezak, D. and Yao, Y. Y. (Eds.) \emph{Rough Sets: Selected Methods and Applications in Management and Engineering}, Springer, 23--37. <doi:10.1007/978-1-4471-2760-4_2>.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
+#' @references Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374. <doi:10.1016/j.ins.2014.02.073>.
+#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37. <doi:10.1016/j.patrec.2014.11.003>.
 #' @usage RoughKMeans_LW(dataMatrix, meansMatrix, nClusters, maxIterations, threshold, weightLower)
 #' @export
 #' @examples 
@@ -300,9 +312,10 @@ assignObj2upperApproxLW = function(dataMatrix, meansMatrix, threshold) {
 #' @return \code{$upperApprox}: Obtained upper approximations [nObjects x nClusters]. Note: Apply function \code{createLowerMShipMatrix()} to obtain lower approximations; and for the boundary: \code{boundary = upperApprox - lowerApprox}.
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
-#' @references Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
-#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
+#' @references Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491. <doi:10.1016/j.patcog.2006.02.002>.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
+#' @references Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374. <doi:10.1016/j.ins.2014.02.073>.
+#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37. <doi:10.1016/j.patrec.2014.11.003>.
 #' @usage RoughKMeans_PE(dataMatrix, meansMatrix, nClusters, maxIterations, threshold, weightLower)
 #' @export
 #' @examples 
@@ -378,9 +391,10 @@ RoughKMeans_PE = function(dataMatrix, meansMatrix = NA, nClusters = 2, maxIterat
 #' @return \code{$upperApprox}: Obtained upper approximations [nObjects x nClusters]. Note: Apply function \code{createLowerMShipMatrix()} to obtain lower approximations; and for the boundary: \code{boundary = upperApprox - lowerApprox}.
 #' @return \code{$clusterMeans}: Obtained means [nClusters x nFeatures].
 #' @return \code{$nIterations}: Number of iterations.
-#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322.
-#' @references Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374.
-#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37.
+#' @references Peters, G. (2006) Some refinements of rough k-means clustering. \emph{Pattern Recognition} \bold{39}, 1481--1491. <doi:10.1016/j.patcog.2006.02.002>.
+#' @references Peters, G.; Crespo, F.; Lingras, P. and Weber, R. (2013) Soft clustering -- fuzzy and rough approaches and their extensions and derivatives. \emph{International Journal of Approximate Reasoning} \bold{54}, 307--322. <doi:10.1016/j.ijar.2012.10.003>.
+#' @references Peters, G. (2014) Rough clustering utilizing the principle of indifference. \emph{Information Sciences} \bold{277}, 358--374. <doi:10.1016/j.ins.2014.02.073>.
+#' @references Peters, G. (2015) Is there any need for rough clustering?  \emph{Pattern Recognition Letters} \bold{53}, 31--37. <doi:10.1016/j.patrec.2014.11.003>.
 #' @usage RoughKMeans_PI(dataMatrix, meansMatrix, nClusters, maxIterations, threshold) 
 #' @export
 #' @examples 
@@ -552,7 +566,7 @@ checkParameters = function(nObjects, nFeatures, nClusters, weightLower, threshol
 #' @description normalizeMatrix delivers a normalized matrix.
 #' @param dataMatrix Matrix with the objects to be normalized. 
 #' @param normMethod 1 = unity interval, 2 = normal distribution (sample variance), 3 = normal distribution (population variance). Any other value returns the matrix unchanged. Default: meansMatrix = 1 (unity interval).
-#' @param bycol TRUE = columns are normalized i.e., each column is considered separately (e.g. in case of the unity interval and a column colA: max(colA)=1 and min(colA)=0). For bycol = FALSE rows are normalized. Default: bycol = TRUE (columns are normalized).
+#' @param bycol TRUE = columns are normalized, i.e., each column is considered separately (e.g., in case of the unity interval and a column colA: max(colA)=1 and min(colA)=0). For bycol = FALSE rows are normalized. Default: bycol = TRUE (columns are normalized).
 #' @return Normalized matrix.
 #' @usage normalizeMatrix(dataMatrix, normMethod, bycol) 
 #' @export
