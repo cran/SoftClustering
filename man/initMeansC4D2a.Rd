@@ -4,7 +4,9 @@
 \name{initMeansC4D2a}
 \alias{initMeansC4D2a}
 \title{Two-dimensional dataset with four initial cluster means for the dataset DemoDataC2D2a. See examples in the Help/Description of a function, e.g. for HardKMeansDemo().}
-\format{Rows: objects, columns: features}
+\format{
+Rows: objects, columns: features
+}
 \usage{
 data(initMeansC4D2a)
 }

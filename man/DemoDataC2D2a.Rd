@@ -4,7 +4,9 @@
 \name{DemoDataC2D2a}
 \alias{DemoDataC2D2a}
 \title{A small two-dimensional dataset with two clusters for demonstration purposes. See examples in the Help/Description of a function, e.g. for HardKMeansDemo().}
-\format{Rows: objects, columns: features}
+\format{
+Rows: objects, columns: features
+}
 \usage{
 data(DemoDataC2D2a)
 }
